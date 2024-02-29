@@ -16,7 +16,6 @@ import Revenue from '../admin/pages/Revenue';
 
 import SignIn from '../component/SignIn';
 import PrivateRoute from './PrivateRoute';
-import CancelTicket from '../component/CancelTicket';
 import MyAccount from '../admin/component/MyAccount';
 
 function AppRouter() {
@@ -29,7 +28,6 @@ function AppRouter() {
             <Route path="/" element={<Search />} />
             <Route path="/myFlight" element={<MyFlight />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/cancelTicket" element={<CancelTicket />} />
             <Route path="/signin" element={<SignIn />} />
             <Route
                 path="/admin"
