@@ -14,37 +14,7 @@ import ToastCustom from '../../Toast';
 
 import { fakeApi } from './fakeApi';
 
-const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const numbers = '0123456789';
-let codeTicket = '';
-
 const cx = classNames.bind(styles);
-// let i = 0;
-
-const randomCharacters = () => {
-    for (let i = 0; i < 6; i++) {
-        if (i === 4) {
-            const randomIndex = Math.floor(Math.random() * numbers.length);
-            codeTicket += numbers[randomIndex];
-        } else {
-            const randomIndex = Math.floor(Math.random() * letters.length);
-            codeTicket += letters[randomIndex];
-        }
-    }
-    console.log('chay di ma lam on');
-    return codeTicket;
-};
-codeTicket = randomCharacters();
-
-const checkTypeTrip = (TypeTrip) => {
-    if (TypeTrip === 'Oneway') {
-        console.log('test1', TypeTrip);
-        return true;
-    } else {
-        console.log('test2', TypeTrip);
-        return false;
-    }
-};
 
 function Paying() {
     const [show, setShow] = useState(false);
@@ -54,6 +24,7 @@ function Paying() {
     const storedTypeTrip = JSON.parse(localStorage.getItem('TypeTrip'));
     const storedQuantity = JSON.parse(localStorage.getItem('Quantity'));
     const inforFlightReturn = JSON.parse(localStorage.getItem('inforFlightReturn'));
+    const codeTicket = JSON.parse(localStorage.getItem('session'));
 
     const [plant, setPlant] = useState('');
     const [numberCard, setNumberCard] = useState('');
@@ -65,6 +36,14 @@ function Paying() {
     const [timeoutPay, setTimeoutPay] = useState(false);
 
     let storedInforFlightReturn, storedInforSeatReturn;
+
+    const checkTypeTrip = (TypeTrip) => {
+        if (TypeTrip === 'Oneway') {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
     const valueReturn = () => {
         storedInforFlightReturn = JSON.parse(localStorage.getItem('inforFlightReturn'));

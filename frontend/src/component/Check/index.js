@@ -30,7 +30,25 @@ function Check() {
     const [children, setChildren] = useState(Number(storedQuantity.children));
     const [baby, setBaby] = useState(Number(storedQuantity.baby));
     const [dataCCCD, setDataCCCD] = useState([]);
+    const [codeTicket, setCodeTicket] = useState('');
     let total = adults + children + baby;
+
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numbers = '0123456789';
+
+    useEffect(() => {
+        let codeTicket = '';
+        for (let i = 0; i < 6; i++) {
+            if (i === 4) {
+                const randomIndex = Math.floor(Math.random() * numbers.length);
+                codeTicket += numbers[randomIndex];
+            } else {
+                const randomIndex = Math.floor(Math.random() * letters.length);
+                codeTicket += letters[randomIndex];
+            }
+        }
+        setCodeTicket(codeTicket);
+    }, []);
 
     const [data, setData] = useState({
         Username: '',
@@ -86,6 +104,7 @@ function Check() {
                 .then((res) => setDataCCCD(res.data.data))
                 .catch((err) => console.log(err));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleCheckName = () => {
@@ -283,6 +302,7 @@ function Check() {
     }
 
     const handleSubmit = () => {
+        localStorage.setItem('session', JSON.stringify(codeTicket));
         if (adults !== 0) {
             handleCheckFormAdults();
             if (isAddress && isDate && isEmail && isCCCD && isName && isPhone) {
@@ -294,6 +314,7 @@ function Check() {
                         Address: data.Address,
                         ID_Card: data.ID_Card,
                         Phone: data.Phone,
+                        Sessions: codeTicket,
                     })
                     .then((res) => {
                         console.log(res);
@@ -336,6 +357,7 @@ function Check() {
                         Address: data.Address,
                         ID_Card: data.ID_Card,
                         Phone: data.Phone,
+                        Sessions: codeTicket,
                     })
                     .then((res) => {
                         console.log(res);
@@ -378,6 +400,7 @@ function Check() {
                         Address: data.Address,
                         ID_Card: data.ID_Card,
                         Phone: data.Phone,
+                        Sessions: codeTicket,
                     })
                     .then((res) => {
                         console.log(res);

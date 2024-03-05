@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { BOOKED_URL } from '../../utils/config';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import GetAllData from '../GetAllData';
 import Header from '../DefaultPage/Header';
 
@@ -18,6 +18,7 @@ function MyFlight() {
     const [data, setData] = useState('');
     const [CodeTicket, setCodeTicket] = useState('');
     const [showInfo, setShowInfo] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     async function fetchAPI() {
         try {
@@ -64,6 +65,19 @@ function MyFlight() {
         fetchAPI();
     };
 
+    const handleDelete = () => {
+        const options = document.querySelector('#wrapper-confirm');
+        options.style.display = 'flex';
+    };
+
+    const handleOptionYes = () => {
+        console.log('Yes');
+    };
+
+    const handleOptionNo = () => {
+        console.log('No');
+    };
+
     return (
         <div className={cx('wrapper')}>
             <Header />
@@ -82,7 +96,27 @@ function MyFlight() {
                 <button onClick={handleSearch}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </button>
+                {showInfo && (
+                    <button onClick={handleDelete}>
+                        <FontAwesomeIcon icon={faBan} />
+                    </button>
+                )}
             </span>
+
+            <div id="wrapper-confirm" className={cx('wrapper-confirm')}>
+                <div className={cx('overlay')}></div>
+                <div className={cx('body')}>
+                    <span className={cx('message')}> Bạn có chắc muốn hủy vé {CodeTicket} này không ?</span>
+                    <div className={cx('select')}>
+                        <button className={cx('select-options')} onClick={handleOptionYes}>
+                            Có
+                        </button>
+                        <button className={cx('select-options')} onClick={handleOptionNo}>
+                            Không
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             {showInfo && (
                 <div className={cx('show')}>

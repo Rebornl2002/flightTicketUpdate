@@ -17,7 +17,6 @@
 //     res.send("<h3>Your email has been sent successfully.</h3>");
 //   } catch (error) {
 //     // Nếu có lỗi thì log ra để kiểm tra và cũng gửi về client
-//     console.log(error);
 //     res.send(error);
 //   }
 // };

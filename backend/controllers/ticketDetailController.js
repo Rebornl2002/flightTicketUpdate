@@ -69,7 +69,6 @@ export const getTicketDetailByCodeTicket = async (req, res) => {
     const id = req.params.id;
     try {
         const ticketDetailSearch = await ticketDetail.find({ CodeTicketGeneral: id });
-        console.log(ticketDetailSearch);
 
         res.status(200).json({
             success: true,
@@ -77,7 +76,6 @@ export const getTicketDetailByCodeTicket = async (req, res) => {
             data: ticketDetailSearch,
         });
     } catch (error) {
-        console.log(error);
         res.status(404).json({
             success: false,
             message: 'Not found ',
@@ -89,7 +87,6 @@ export const getTicketDetailBySearchCodeTicket = async (req, res) => {
     const id = req.params.id;
     try {
         const ticketDetailSearch = await ticketDetail.find({ CodeTicket: id });
-        console.log('dataSearch', ticketDetailSearch);
 
         res.status(200).json({
             success: true,
@@ -97,7 +94,6 @@ export const getTicketDetailBySearchCodeTicket = async (req, res) => {
             data: ticketDetailSearch,
         });
     } catch (error) {
-        console.log(error);
         res.status(404).json({
             success: false,
             message: 'Not found ',
@@ -116,7 +112,6 @@ export const getTicketDetailByFlightNumber = async (req, res) => {
             data: ticketDetailSearch,
         });
     } catch (error) {
-        console.log(error);
         res.status(404).json({
             success: false,
             message: 'Not found ',
@@ -140,14 +135,12 @@ export const getTicketDetailByFlightNumberRoundTrip = async (req, res) => {
             { ID_Card: 1 },
         );
 
-        console.log(req.query);
         res.status(200).json({
             success: true,
             message: 'Successfully',
             data: ticketDetailSearch,
         });
     } catch (error) {
-        console.log(error);
         res.status(404).json({
             success: false,
             message: 'Not found ',

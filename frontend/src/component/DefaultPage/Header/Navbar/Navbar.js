@@ -7,9 +7,9 @@ const cx = classNames.bind(styles);
 function Navbar() {
     const handleClick = () => {
         localStorage.clear();
-        setTimeout(() => {
-            window.location.reload(true);
-        }, 1000);
+        // setTimeout(() => {
+        //     window.location.reload(true);
+        // }, 1000);
     };
     return (
         <div className={cx('wrapper')}>

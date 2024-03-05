@@ -96,8 +96,6 @@ export const getMyAccount = async (req, res) => {
             count: accounts.length,
             data: accounts,
         });
-
-        console.log(accounts);
     } catch (error) {
         res.status(404).json({
             success: false,

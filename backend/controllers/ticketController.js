@@ -150,22 +150,20 @@ export const getTicketBySearch = async (req, res) => {
     const DateGo = new Date(req.query.DateGo);
     // const DateReturn = new Date(req.query.DateReturn);
 
-    console.log(AirportFrom);
-
     const DateReturn = '2024-01-02T14:30';
-    // console.log(DateReturn);
+    //
     // const DateReturn = "01-02-2024";
 
     const formattedDateReturn = new Date(DateReturn).toISOString();
 
-    // console.log(formattedDateReturn);
+    //
 
-    // console.log("Convert Date:" + moment(DateGo).utc().format("YYYY-mm-DD"));
+    // Date:" + moment(DateGo).utc().format("YYYY-mm-DD"));
     try {
-        // console.log("anh nghi dep trai", DateGo);
+        // nghi dep trai", DateGo);
 
         // const tickets = await Ticket();
-        // console.log(tickets);
+        //
 
         const tickets = await Ticket.find({
             AirportFrom,
@@ -180,12 +178,12 @@ export const getTicketBySearch = async (req, res) => {
             //function filter in mongdb: { DateGo: { $eq:ISODate("2024-01-01T17:00:00.000Z") } }
         });
 
-        // console.log(tickets);
+        //
         // const ticket = tickets.map((ticket) => ticket.Roundtrip.DateReturn);
-        // console.log(ticket);
+        //
 
         // const tickets = await Ticket.find({ Duration: { $gte: Duration } });
-        // console.log(data);
+        //
 
         res.status(200).json({
             success: true,
@@ -209,7 +207,6 @@ export const getTicketBySearchCompany = async (req, res) => {
 
     const DateGo = new Date(req.query.DateGo);
     const AirlineCode = new RegExp(req.query.AirlineCode, 'i');
-    console.log('thoi xong anh roi', AirlineCode);
 
     try {
         const tickets = await Ticket.find({
@@ -311,12 +308,11 @@ export const getTicketByTodayOfCompany = async (req, res) => {
             //function filter in mongdb: { DateGo: { $eq:ISODate("2024-01-01T17:00:00.000Z") } }
         });
 
-        console.log(tickets);
         // const ticket = tickets.map((ticket) => ticket.Roundtrip.DateReturn);
-        // console.log(ticket);
+        //
 
         // const tickets = await Ticket.find({ Duration: { $gte: Duration } });
-        // console.log(data);
+        //
 
         res.status(200).json({
             success: true,
@@ -342,8 +338,6 @@ export const getTicketCompletedAll = async (req, res) => {
             LandingTime: { $lt: currentDate },
         });
 
-        console.log(tickets);
-
         res.status(200).json({
             success: true,
             message: 'Successfully found search',
@@ -363,12 +357,10 @@ const getMonth = () => {
     currentMonthStart.setDate(1);
     currentMonthStart.setMonth(currentMonthStart.getMonth(), 0);
     currentMonthStart.setHours(0, 0, 0, 0);
-    console.log(currentMonthStart);
 
     const currentMonthEnd = new Date();
     currentMonthEnd.setMonth(currentMonthEnd.getMonth() + 1, 0);
     currentMonthEnd.setHours(23, 59, 59, 999);
-    console.log(currentMonthEnd);
 
     return {
         currentMonthStart: currentMonthStart,
@@ -385,8 +377,6 @@ export const getTicketIncompletedAll = async (req, res) => {
         const tickets = await Ticket.find({
             LandingTime: { $gt: currentDate },
         });
-
-        console.log(tickets);
 
         res.status(200).json({
             success: true,

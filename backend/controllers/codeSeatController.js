@@ -45,7 +45,7 @@ export const updateCodeSeat = async (req, res) => {
         };
 
         getCodeSeatPresent();
-        console.log('code', codeSeatPresent);
+
         var isUnique = codeSeat.every((value) => !codeSeatPresent.includes(value));
 
         if (isUnique) {
@@ -75,7 +75,6 @@ export const updateCodeSeat = async (req, res) => {
             });
         }
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             success: false,
             message: 'Failed to update. Try again ',
@@ -167,7 +166,6 @@ export const updateCodeSeatRoundTrip = async (req, res) => {
             });
         }
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             success: false,
             message: 'Failed to update. Try again ',
@@ -179,7 +177,6 @@ export const updateCodeSeatPayingFail = async (req, res) => {
     const id = req.params.id;
     const type = req.query.type;
     const codeSeat = req.query.seat.split(',');
-    console.log('Da xu ly');
     try {
         const updatedCodeSeat = await CodeSeat.updateOne(
             { FlightNumber: id },
@@ -193,7 +190,6 @@ export const updateCodeSeatPayingFail = async (req, res) => {
             data: updatedCodeSeat,
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             success: false,
             message: 'Failed to update. Try again ',
@@ -230,7 +226,6 @@ export const getCodeSeatById = async (req, res) => {
             data: CodeSeatSearch,
         });
     } catch (error) {
-        console.log(error);
         res.status(404).json({
             success: false,
             message: 'Not found ',
@@ -249,7 +244,6 @@ export const getTicketDetailByFlightNumber = async (req, res) => {
             data: CodeSeatSearch,
         });
     } catch (error) {
-        console.log(error);
         res.status(404).json({
             success: false,
             message: 'Not found ',
@@ -273,14 +267,12 @@ export const getTicketDetailByFlightNumberRoundTrip = async (req, res) => {
             { ID_Card: 1 },
         );
 
-        console.log(req.query);
         res.status(200).json({
             success: true,
             message: 'Successfully',
             data: CodeSeatSearch,
         });
     } catch (error) {
-        console.log(error);
         res.status(404).json({
             success: false,
             message: 'Not found ',

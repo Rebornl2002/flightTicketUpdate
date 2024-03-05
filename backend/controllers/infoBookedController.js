@@ -13,7 +13,6 @@ export const createInfoBooked = async (req, res) => {
             data: saveInfoBooked,
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             success: false,
             message: error,
@@ -40,7 +39,6 @@ export const updateInfoBooked = async (req, res) => {
             data: updatedInfoBooked,
         });
     } catch (error) {
-        console.log('Loi o day ne', error);
         res.status(500).json({
             success: false,
             message: error,
@@ -92,7 +90,7 @@ export const getSingleInfoBooked = async (req, res) => {
 export const getAllInfoBooked = async (req, res) => {
     //for pagination
     // const page = parseInt(req.query.page);
-    // console.log(page);
+    //
 
     try {
         const infoBooked = await InfoBooked.find({});
@@ -161,7 +159,6 @@ export const getAllInfoBookedRoundtrip = async (req, res) => {
         //     .limit(5);
 
         if (infoBooked.length > 0) {
-            console.log('ao that day');
             res.status(200).json({
                 success: true,
                 count: infoBooked.length,
@@ -220,7 +217,6 @@ export const getAllInfoBookedRoundtripOfCompany = async (req, res) => {
         });
 
         if (infoBooked.length > 0) {
-            console.log('ao that day');
             res.status(200).json({
                 success: true,
                 count: infoBooked.length,
@@ -294,7 +290,7 @@ export const getInfoBookedMonthNow = async (req, res) => {
             LandingTime: { $gte: currentMonthStart, $lt: currentMonthEnd },
         });
 
-        // console.log(InfoBookeds);
+        //
 
         res.status(200).json({
             success: true,
@@ -376,7 +372,7 @@ export const getInfoBookedCompany = async (req, res) => {
             FlightNumber: flightNumber,
         });
 
-        // console.log(InfoBookeds);
+        //
 
         res.status(200).json({
             success: true,
@@ -501,7 +497,7 @@ export const fetchAPICancelInfoTicket = async (req, res) => {
     const id_Card = new RegExp(`^${req.query.ID_Card}$`);
     const userName = new RegExp(`^${req.query.UserName}$`);
 
-    // console.log('In ra nào:', codeTicket, flightNumber, email, id_Card, userName);
+    // ra nào:', codeTicket, flightNumber, email, id_Card, userName);
 
     try {
         const InfoBookeds = await InfoBooked.find({
