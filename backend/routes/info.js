@@ -18,6 +18,7 @@ import {
     fetchAPICancelInfoTicket,
     getAllInfoBookedOnewayOfCompany,
     getAllInfoBookedRoundtripOfCompany,
+    deleteInfoBookedByCodeSeat,
 } from './../controllers/infoBookedController.js';
 
 const router = express.Router();
@@ -27,6 +28,7 @@ router.post('/', createInfoBooked);
 
 //delete new ticket
 router.delete('/:id', deleteInfoBooked);
+router.delete('/codeSeat/:id', deleteInfoBookedByCodeSeat);
 
 //update new ticket
 router.put('/:id', updateInfoBooked);

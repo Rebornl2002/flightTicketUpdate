@@ -46,18 +46,59 @@ export const updateticketDetail = async (req, res) => {
     }
 };
 
-//delete ticket
+const checkManyAdults = (code) => {
+    let adults = 0;
+    for (let i = 0; i < code.length; i++) {
+        const test = code[i].CodeTicket.slice(6, 7);
+        if (test === 'A') {
+            adults++;
+        }
+    }
+    if (adults === 1) {
+        return false;
+    } else {
+        return true;
+    }
+};
 
 export const deleteticketDetail = async (req, res) => {
     const id = req.params.id;
     try {
-        await ticketDetail.findByIdAndDelete(id);
+        const codeGeneral = id.slice(0, 6);
+        const check = id.slice(6, 7);
 
-        res.status(200).json({
-            success: true,
-            message: 'Successfully deleted',
-        });
+        if (check !== 'A') {
+            await ticketDetail.findOneAndDelete({ CodeTicket: id });
+            res.status(200).json({
+                success: true,
+                message: 'Successfully deleted',
+            });
+        } else {
+            const data = await ticketDetail.find({ CodeTicketGeneral: codeGeneral }, { CodeTicket: 1, _id: 0 });
+
+            if (data.length === 1) {
+                await ticketDetail.findOneAndDelete({ CodeTicket: data[0].CodeTicket });
+                res.status(200).json({
+                    success: true,
+                    message: 'Successfully deleted',
+                });
+            } else if (data.length > 1) {
+                if (checkManyAdults(data)) {
+                    await ticketDetail.findOneAndDelete({ CodeTicket: id });
+                    res.status(200).json({
+                        success: true,
+                        message: 'Successfully deleted',
+                    });
+                } else {
+                    res.status(500).json({
+                        success: false,
+                        message: 'Chỉ có 1 người lớn nên không thể hủy vé',
+                    });
+                }
+            }
+        }
     } catch (error) {
+        console.error(error);
         res.status(500).json({
             success: false,
             message: 'Failed to delete. Try again ',

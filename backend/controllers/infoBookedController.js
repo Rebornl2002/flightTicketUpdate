@@ -65,6 +65,23 @@ export const deleteInfoBooked = async (req, res) => {
     }
 };
 
+export const deleteInfoBookedByCodeSeat = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await InfoBooked.findOneAndDelete({ CodeTicket: id });
+
+        res.status(200).json({
+            success: true,
+            message: 'Successfully deleted',
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete. Try again ',
+        });
+    }
+};
+
 //getSingle ticket
 
 export const getSingleInfoBooked = async (req, res) => {

@@ -11,6 +11,7 @@ import Header from '../DefaultPage/Header';
 
 import { toast } from 'react-toastify';
 import ToastCustom from '../../Toast';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +19,6 @@ function MyFlight() {
     const [data, setData] = useState('');
     const [CodeTicket, setCodeTicket] = useState('');
     const [showInfo, setShowInfo] = useState(false);
-    const [showConfirm, setShowConfirm] = useState(false);
 
     async function fetchAPI() {
         try {
@@ -71,11 +71,30 @@ function MyFlight() {
     };
 
     const handleOptionYes = () => {
-        console.log('Yes');
+        const options = document.querySelector('#wrapper-confirm');
+        options.style.display = 'none';
+
+        axios
+            .delete(`http://localhost:4000/ticketDetail/${CodeTicket}`)
+            .then(() => {
+                axios
+                    .delete(`http://localhost:4000/info/codeSeat/${CodeTicket}`)
+                    .then(() => {
+                        toast.success('Hủy vé thành công');
+                        handleSearch();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            })
+            .catch((err) => {
+                toast.error(err.response.data.message);
+            });
     };
 
     const handleOptionNo = () => {
-        console.log('No');
+        const options = document.querySelector('#wrapper-confirm');
+        options.style.display = 'none';
     };
 
     return (
